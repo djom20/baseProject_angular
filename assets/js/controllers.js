@@ -2,7 +2,9 @@ var Appc = angular.module('Controllers', ['ApiServices']);
 
 Appc.controller('HomeCtrl', ['$scope', '$http', '$location', 'Auth',
     function($scope, $http, $location, Auth) {
-        console.log("Init Controller HomeCtrl");
+        $scope.welcomeMessage = 'Init Controller HomeCtrl';
+
+        console.log($scope.welcomeMessage);
 
         Auth.on().success(function() {
             console.log('The user was logged correctly');
