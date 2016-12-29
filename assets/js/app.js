@@ -48,12 +48,27 @@ App.config(['$routeProvider', '$httpProvider', '$locationProvider',
         }];
 
         $routeProvider
-            .when('/', {
+            .when('/home', {
+                templateUrl: 'partials/home.html',
+                controller: 'HomeCtrl'
+            })
+            .when('/dashboard', {
                 templateUrl: 'partials/home.html',
                 controller: 'HomeCtrl'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/home'
             });
     }
-]);
+]).run(function($rootScope, $location) {
+    $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        if (localStorage.user == undefined) {
+            if (next.originalPath != "/home") {
+                console.log('haciendo redireccion');
+                $location.path("/home");
+            }
+        } else {
+            $location.path("/dashboard");
+        }
+    });
+});
